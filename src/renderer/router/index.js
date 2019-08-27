@@ -7,8 +7,18 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'landing-page',
-      component: require('@/components/LandingPage').default
+      name: 'week-page',
+      component: require('@/views/Week').default
+    },
+    {
+      path: '/day',
+      name: 'day-page',
+      component: require('@/views/Day').default
+    },
+    {
+      path: '/month',
+      name: 'day-page',
+      component: require('@/views/Month').default
     },
     {
       path: '*',

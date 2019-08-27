@@ -10,6 +10,13 @@ body {
     padding: 0;
 }
 
+.todo-container {
+    padding: 8px;
+}
+
 @import './variables';
 @import 'titleBar';
 @import 'header';
+@import 'week';
+@import 'day';
+@import 'month';

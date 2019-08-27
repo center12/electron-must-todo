@@ -2,7 +2,9 @@
   <div id="app">
     <title-bar></title-bar>
     <app-header></app-header>
-    <router-view></router-view>
+    <div class="todo-container">
+      <router-view></router-view>
+    </div>
   </div>
 </template>
 

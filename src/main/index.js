@@ -25,7 +25,9 @@ function createWindow () {
   })
 
   mainWindow.loadURL(winURL)
-
+  if (process.env.NODE_ENV !== 'development'){
+    mainWindow.webContents.openDevTools({mode: "undocked"})
+  }
   mainWindow.on('closed', () => {
     mainWindow = null
   })
