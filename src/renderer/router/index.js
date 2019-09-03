@@ -17,7 +17,7 @@ export default new Router({
     },
     {
       path: '/month',
-      name: 'day-page',
+      name: 'month-page',
       component: require('@/views/Month').default
     },
     {

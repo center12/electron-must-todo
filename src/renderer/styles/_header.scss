@@ -9,6 +9,7 @@
     float: right;
     width: 152px;
     height: 32px;
+    outline: none;
     background-color: #6979F8;
     box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.09);
     border-radius: 16px;
@@ -16,6 +17,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    border: none;
     span {
         font-size: 16px;
         line-height: 24px;

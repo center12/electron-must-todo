@@ -36,6 +36,7 @@ export default {
         console.log(this.current_day_of_week)
     },
     methods: {
+        
         getDayNameInfo(index) {
             var date = moment().startOf('isoWeek')
             if(index == 1) {

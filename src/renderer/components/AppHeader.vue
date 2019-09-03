@@ -7,17 +7,22 @@
                 </span>
             </el-col>
             <el-col :span="12">
-                <div class="add-task-btn">
+                <button class="add-task-btn" @click="toggleTaskModal">
                     <i class="el-icon-circle-plus-outline"></i><span>Add task</span> 
-                </div>
+                </button>
             </el-col>
         </el-row>
     </div>
 </template>
 
 <script>
+import {mapState, mapActions} from 'vuex'
 export default {
-
+    methods: {
+        ...mapActions([
+            'toggleTaskModal'
+        ]),
+    }
 }
 </script>
 

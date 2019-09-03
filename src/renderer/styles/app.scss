@@ -8,15 +8,23 @@ body {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
+    outline: none;
 }
 
 .todo-container {
     padding: 8px;
 }
-
+.el-dialog__header{
+    padding: 0;
+}
+.el-dialog__body {
+    padding: 0;
+}
 @import './variables';
 @import 'titleBar';
 @import 'header';
 @import 'week';
 @import 'day';
 @import 'month';
+@import 'task';
+

@@ -1,0 +1,37 @@
+.task-title {
+    width: 100%;
+    font-size: 18px;
+    border: none;
+    outline: none;
+}
+.add-color-btn {
+    height: 16px;
+    width: 16px;
+    background-color: #AF93E9;
+    float: right;
+    outline: none;
+}
+.color-picker {
+    position: absolute;
+    top: 20px;
+}
+.t-title {
+    border-radius: 6px 6px 0px 0px;
+}
+.t-row {
+    box-shadow: 0px 1px 0px rgba(0, 0, 0, 0.05);
+}
+
+.p-15 {
+    padding: 8px 15px;
+}
+.date-desc {
+    font-size: 12px;
+    line-height: 18px;
+}
+.text-right {
+    text-align: right;
+}
+.text-desc {
+    width: 70px;
+}
