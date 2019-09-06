@@ -12,8 +12,7 @@
     outline: none;
 }
 .color-picker {
-    position: absolute;
-    top: 20px;
+    padding: 0;
 }
 .t-title {
     border-radius: 6px 6px 0px 0px;
@@ -26,7 +25,6 @@
     padding: 8px 15px;
 }
 .date-desc {
-    font-size: 12px;
     line-height: 18px;
 }
 .text-right {
@@ -34,4 +32,48 @@
 }
 .text-desc {
     width: 70px;
+}
+.text-label {
+    padding-top: 4px;
+    color: #BDBDBD;
+}
+.input-date {
+    .el-input__inner {
+        width: 90px;
+        padding: 0;
+        height: 25px;
+        font-size: 13px;
+        border: none;
+    }
+    
+}
+.el-date-table td {
+    padding: 0;
+}
+.t-date-time {
+    font-size: 13px;
+}
+.text-date {
+    .el-input__inner {
+        padding: 0;
+        font-size: 13px;
+        height: 25px;
+        border: none;
+    }
+    .el-input__suffix {
+        display: none;
+    }
+}
+.date-custom {
+    .el-date-picker__header {
+        margin: 0 12px;
+    }
+    .el-picker-panel__content {
+        margin: 0 12px;
+    }
+}
+.task-note {
+    .task-title {
+        font-size: 13px;
+    }
 }

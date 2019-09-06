@@ -6,7 +6,11 @@
                 :class="{'ml-5': index > 1, 
                     'day-child': (index % 2), 
                     'day-head-active': index == (current_day_of_week + 1) }">
-                <span class="ml-5">{{getDayNameInfo(index)}} <b>{{getDayNumberInfo(index)}}</b></span>
+                <span class="ml-5">{{getDayNameInfo(index)}} 
+                    <b :class=" {'day-hilight': index == (current_day_of_week + 1) }">
+                        {{getDayNumberInfo(index)}}
+                    </b>
+                </span>
             </div>
       </div>
       <div class="week-body">

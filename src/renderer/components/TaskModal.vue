@@ -14,11 +14,23 @@
                     v-model="form.title"
                     ></textarea-autosize>
             </el-col>
-            <el-col :span="4" v-click-outside="hideColorPicker">
-                <button class="add-color-btn" :style="{'background-color': form.color.hex}" @click="toggleColorPicker"></button>
-                <div class="color-picker"  v-if="show_color">
-                    <compact-picker v-model="form.color" />
-                </div>
+            <el-col :span="4">
+                <el-popover
+                    placement="bottom"
+                    v-model="show_color"
+                    popper-class="color-picker"
+                    >
+                    <template slot="reference">
+                        <button class="add-color-btn" 
+                        :style="{'background-color': form.color.hex}" 
+                        ></button>
+                    </template>
+                    <div >
+                        <compact-picker v-model="form.color" />
+                    </div>
+                </el-popover>
+                
+                
             </el-col>
         </el-row>
     </div>
@@ -27,15 +39,81 @@
        <div class="date-detail">
            <el-row :gutter="10">
                <el-col :span="6" class="text-right text-label">Start</el-col>
-               <el-col :span="8" class="text-date">Aug 12, 2019 </el-col>
-               <el-col :span="8" class="text-date">10:00 PM </el-col>
+               <el-col :span="8" class="text-date">
+                   <el-date-picker
+                    v-model="form.start_date"
+                    type="date"
+                    format="MMM dd, yyyy"
+                    class="input-date"
+                    popper-class="date-custom"
+                    prefix-icon="no-icon"
+                    size="mini"
+                    value-format="yyyy/MM/dd"
+                    placeholder="Pick a day">
+                    </el-date-picker>
+                </el-col>
+               <el-col :span="8" class="text-date">
+                    <el-time-picker
+                    v-model="form.start_time"
+                    format="hh:mm A"
+                    class="input-date"
+                    prefix-icon="no-icon"
+                    value-format="HH:mm"
+                    placeholder="time">
+                    </el-time-picker>
+               </el-col>
            </el-row>
            <el-row :gutter="10">
-               <el-col :span="6" class="text-right text-label">Start</el-col>
-               <el-col :span="8" class="text-date">Aug 12, 2019 </el-col>
-               <el-col :span="8" class="text-date">10:00 PM </el-col>
+               <el-col :span="6" class="text-right text-label">End</el-col>
+               <el-col :span="8" class="text-date">
+                   <el-date-picker
+                    v-model="form.end_date"
+                    type="date"
+                    format="MMM dd, yyyy"
+                    class="input-date"
+                    popper-class="date-custom"
+                    prefix-icon="no-icon"
+                    size="mini"
+                    value-format="yyyy/MM/dd"
+                    placeholder="Pick a day">
+                    </el-date-picker>
+               </el-col>
+               <el-col :span="8" class="text-date">
+                   <el-time-picker
+                    v-model="form.end_time"
+                    format="hh:mm A"
+                    class="input-date"
+                    value-format="HH:mm"
+                    prefix-icon="no-icon"
+                    placeholder="time">
+                    </el-time-picker>
+               </el-col>
+           </el-row>
+           <el-row :gutter="10">
+               <el-col :span="6" class="text-right text-label">Alert</el-col>
+               <el-col :span="18" class="text-date">
+                   <el-select v-model="form.alert" class="alert-select" placeholder="Select">
+                        <el-option
+                            v-for="(item, index) in alert_option"
+                            :key="index"
+                            :label="item.label"
+                            :value="item.value"
+                            >
+                        </el-option>
+                    </el-select>
+               </el-col>
+               
            </el-row>
        </div>
+       
+    </div>
+    <div class="t-row p-15 task-note">
+        <textarea-autosize
+        placeholder="Take Note"
+        ref="task_note"
+        class="task-title"
+        v-model="form.note"
+        ></textarea-autosize>
     </div>
   </el-dialog>
 </template>
@@ -43,13 +121,11 @@
 <script>
 import {mapState, mapActions} from 'vuex'
 import { Compact } from 'vue-color'
-import ClickOutside from 'vue-click-outside'
+import moment from 'moment'
+
 export default {
     components: {
         'compact-picker': Compact
-    },
-    directives: {
-        ClickOutside
     },
     data() {
         let default_color = {
@@ -65,8 +141,12 @@ export default {
             form: {
                 title: "",
                 color: {...default_color},
-                start_time: "",
-                start_date: ""
+                start_time: moment().format('HH:mm'),
+                start_date: moment().format('YYYY/MM/DD'),
+                end_date: moment().format('YYYY/MM/DD'),
+                end_time: moment().add(1, 'hour').format('HH:mm'),
+                alert: 10,
+                note: ""
             },
             show_color: false,
         }
@@ -79,7 +159,23 @@ export default {
             set() {
                 this.closeTaskModal()
             }
-        }
+        },
+        alert_option: _ => {
+            return [
+                {
+                    value: 10,
+                    label: '10 mins Before'
+                },
+                {
+                    value: 20,
+                    label: '20 mins Before'
+                },
+                {
+                    value: 30,
+                    label: '30 mins Before'
+                },
+            ]
+        } 
     },
     methods: {
         ...mapActions([
@@ -87,16 +183,16 @@ export default {
             'closeTaskModal'
         ]),
         toggleColorPicker() {
-            this.show_color = !this.show_color
+            // this.show_color = !this.show_color
         },
         hideColorPicker() {
-            this.show_color = false
+            // this.show_color = false
         },
     },
     watch: {
         'form.color'(value) {
-            console.log(value)
-        }
+            this.show_color = false
+        },
     }
 }
 </script>
