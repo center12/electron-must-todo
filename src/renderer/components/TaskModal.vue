@@ -115,6 +115,16 @@
         v-model="form.note"
         ></textarea-autosize>
     </div>
+    <div class="t-row p-15 t-button">
+        <el-row>
+            <el-col :span="12" class="text-center">
+                <button class="close-btn" @click="closeTaskModal">Close</button>
+            </el-col>
+            <el-col :span="12" class="text-center">
+                <button class="done-btn" @click="save">Done</button>
+            </el-col>
+        </el-row>
+    </div>
   </el-dialog>
 </template>
 
@@ -182,11 +192,8 @@ export default {
             'toggleTaskModal',
             'closeTaskModal'
         ]),
-        toggleColorPicker() {
-            // this.show_color = !this.show_color
-        },
-        hideColorPicker() {
-            // this.show_color = false
+        save() {
+            
         },
     },
     watch: {
