@@ -5,15 +5,15 @@
                 v-for="index in 7" :key="index" 
                 :class="{'ml-5': index > 1, 
                     'day-child': (index % 2), 
-                    'day-head-active': index == (current_day_of_week + 1) }">
+                    'day-head-active': index == current_day_of_week }">
                 <span class="ml-5">{{getDayNameInfo(index)}} 
-                    <b :class=" {'day-hilight': index == (current_day_of_week + 1) }">
+                    <b :class=" {'day-hilight': index == current_day_of_week }">
                         {{getDayNumberInfo(index)}}
                     </b>
                 </span>
             </div>
       </div>
-      <div class="week-body">
+      <div class="week-body clearfix">
           <div class="todo-task">
               
           </div>
@@ -21,7 +21,7 @@
             v-for="index in 7" :key="index" 
             :class="{'ml-5': index > 1, 
                 'day-child': (index % 2), 
-                'day-head-active': index == (current_day_of_week + 1)}">
+                'day-head-active': index == current_day_of_week}">
           </div>
       </div>
   </div>
@@ -29,15 +29,22 @@
 
 <script>
 import moment from 'moment'
+import Todo from '../models/Todo'
+
 export default {
     data() {
         return {
             first_day_of_week: moment().startOf('isoWeek'),
-            current_day_of_week: parseInt(moment().startOf('isoWeek').format('d'))
+            current_day_of_week: parseInt(moment().isoWeekday()),
+            todos: []
         }
     },
+    computed: {
+        model: _ => new Todo()
+    },
     mounted() {
-        console.log(this.current_day_of_week)
+        this.fetchData()
+        
     },
     methods: {
         
@@ -56,6 +63,12 @@ export default {
             } else {
                 return date.add(index - 1, 'days').format('DD')
             }
+        },
+        fetchData() {
+            this.model.fetch((err, data) => {
+                this.todos = data
+                console.log(data)
+            })
         }
     }
 }

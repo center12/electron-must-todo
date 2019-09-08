@@ -16,17 +16,17 @@
 }
 
 .todo-col {
-    min-height: 400px;
+    min-height: calc(100vh - 153px);
 }
 .day-col-active {
     background-color: #fbfafe;
 }
+.day-child {
+    background-color: #fbfbfb;
+}
 .day-head-active {
     background-color: #fbfafe;
     border-color: #6979F8;
-}
-.day-child {
-    background-color: #fbfbfb;
 }
 .day-hilight {
     padding: 1px 5px;

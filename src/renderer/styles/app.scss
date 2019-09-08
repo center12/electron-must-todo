@@ -20,6 +20,11 @@ body {
 .el-dialog__body {
     padding: 0;
 }
+.clearfix::after {
+    content: "";
+    clear: both;
+    display: table;
+}
 @import './variables';
 @import 'titleBar';
 @import 'header';

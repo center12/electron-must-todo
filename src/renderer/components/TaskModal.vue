@@ -121,7 +121,7 @@
                 <button class="close-btn" @click="closeTaskModal">Close</button>
             </el-col>
             <el-col :span="12" class="text-center">
-                <button class="done-btn" @click="save">Done</button>
+                <button class="done-btn" v-loading="busy" @click="save">Done</button>
             </el-col>
         </el-row>
     </div>
@@ -132,6 +132,7 @@
 import {mapState, mapActions} from 'vuex'
 import { Compact } from 'vue-color'
 import moment from 'moment'
+import Todo from '../models/Todo' 
 
 export default {
     components: {
@@ -159,6 +160,7 @@ export default {
                 note: ""
             },
             show_color: false,
+            busy: false
         }
     },
     computed: {
@@ -193,8 +195,44 @@ export default {
             'closeTaskModal'
         ]),
         save() {
-            
+            if(!this.validate() || this.busy) return false
+            this.busy = true
+            var todo = new Todo()
+            todo.create(this.form, (err, item) => {
+                this.busy = false
+                this.closeTaskModal()
+            })
         },
+        validate() {
+            if(!this.form.title) {
+                this.showError('Title invalid')
+                return false
+            }
+            if(!this.form.start_date) {
+                this.showError('Start date invalid')
+                return false
+            }
+            if(!this.form.start_time) {
+                this.showError('Start time invalid')
+                return false
+            }
+            if(!this.form.end_date) {
+                this.showError('End date invalid')
+                return false
+            }
+            if(!this.form.end_time) {
+                this.showError('End time invalid')
+                return false
+            }
+            return true
+        },
+        showError(message) {
+            this.$message({
+                showClose: true,
+                message: message,
+                type: 'error'
+            });
+        }
     },
     watch: {
         'form.color'(value) {
