@@ -14,15 +14,17 @@
             </div>
       </div>
       <div class="week-body clearfix">
-          <div class="todo-task">
-              
-          </div>
+          
           <div class="todo-col day-col" 
             v-for="index in 7" :key="index" 
             :class="{'ml-5': index > 1, 
                 'day-child': (index % 2), 
                 'day-head-active': index == current_day_of_week}">
+                <div class="add-todo-btn">
+                    <img :src="add_img" alt="" srcset="" @click="toggleTaskModal">
+                </div>
           </div>
+          <tag-todo v-for="(item, index) in todos" :key="index*1000" :index="index" :item="item"></tag-todo>
       </div>
   </div>
 </template>
@@ -30,8 +32,12 @@
 <script>
 import moment from 'moment'
 import Todo from '../models/Todo'
+import AddImg from '../assets/Add.png'
+import TagTodo from '../components/TagTodo'
+import {mapActions} from 'vuex'
 
 export default {
+    components: {TagTodo},
     data() {
         return {
             first_day_of_week: moment().startOf('isoWeek'),
@@ -40,14 +46,17 @@ export default {
         }
     },
     computed: {
-        model: _ => new Todo()
+        model: _ => new Todo(),
+        add_img: _ => AddImg
     },
     mounted() {
         this.fetchData()
         
     },
     methods: {
-        
+        ...mapActions([
+            'toggleTaskModal'
+        ]),
         getDayNameInfo(index) {
             var date = moment().startOf('isoWeek')
             if(index == 1) {
