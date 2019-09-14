@@ -34,7 +34,7 @@ import moment from 'moment'
 import Todo from '../models/Todo'
 import AddImg from '../assets/Add.png'
 import TagTodo from '../components/TagTodo'
-import {mapActions} from 'vuex'
+import {mapActions, mapState} from 'vuex'
 
 export default {
     components: {TagTodo},
@@ -46,12 +46,14 @@ export default {
         }
     },
     computed: {
+        ...mapState({
+            refresh_todo: state => state.Task.refresh_todo
+        }),
         model: _ => new Todo(),
         add_img: _ => AddImg
     },
     mounted() {
         this.fetchData()
-        
     },
     methods: {
         ...mapActions([
@@ -76,8 +78,12 @@ export default {
         fetchData() {
             this.model.fetch((err, data) => {
                 this.todos = data
-                console.log(data)
             })
+        }
+    },
+    watch: {
+        refresh_todo(value) {
+            this.fetchData()
         }
     }
 }

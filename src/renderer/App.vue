@@ -26,7 +26,7 @@
 <style lang="scss">
   @import './styles/app.scss';
   /* CSS */
-  body {
+  .title-bar {
     -webkit-app-region: drag;
   }
 </style>
